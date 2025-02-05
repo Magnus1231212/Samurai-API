@@ -7,12 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
-
 builder.Services.AddControllers();
 
 var conStr = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DatabaseContext>(obj => obj.UseSqlServer(conStr));
+
+builder.Services.AddScoped<IBattle, BattleRepository>();
 builder.Services.AddScoped<ISamurai, SamuraiRepository>();
+<<<<<<< HEAD
 builder.Services.AddScoped<IBattle, BattleRepository>();
 builder.Services.AddScoped<IHorse, HorseRepository>();
 
@@ -28,6 +30,10 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
         Console.WriteLine("Database connection failed");
     }
 }
+=======
+builder.Services.AddScoped<IHorse, HorseRepository>();
+
+>>>>>>> bb7830fab4e2cb8f9dfa189071e7acee1ff5dc49
 
 var app = builder.Build();
 
@@ -39,7 +45,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.MapControllers();
 
 app.Run();
