@@ -1,0 +1,6 @@
+@Samurai.API_HostAddress = http://localhost:5197
+
+GET {{Samurai.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
