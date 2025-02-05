@@ -77,24 +77,6 @@ namespace Samurai.DAL.Repositories
         }
 
         /// <summary>
-        /// Retrieves all samurais with their associated horse.
-        /// </summary>
-        /// <returns>A list of samurais with their horse.</returns>
-        public async Task<List<SamuraiModel>> GetSamuraisWithHorseAsync()
-        {
-            return await context.Samurais.Include(s => s.Horse).ToListAsync();
-        }
-
-        /// <summary>
-        /// Retrieves all samurais with their associated battles.
-        /// </summary>
-        /// <returns>A list of samurais with their battles.</returns>
-        public async Task<List<SamuraiModel>> GetSamuraisWithBattlesAsync()
-        {
-            return await context.Samurais.Include(s => s.Battles).ToListAsync();
-        }
-
-        /// <summary>
         /// Adds a battle to a samurai.
         /// </summary>
         /// <param name="samuraiId">The ID of the samurai.</param>
