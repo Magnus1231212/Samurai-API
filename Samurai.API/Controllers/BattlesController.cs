@@ -1,43 +1,73 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Samurai.DAL.Models;
+using Samurai.DAL.Interfaces;
+
 
 namespace Samurai.API.Controllers
 {
+    /// <summary>
+    /// API Controller for managing battles.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class BattlesController : ControllerBase
     {
-        private readonly DatabaseContext _context;
+        private readonly IBattle _context;
 
-        public BattlesController(DatabaseContext context)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BattlesController"/> class.
+        /// </summary>
+        /// <param name="context">The battle repository instance.</param>
+        public BattlesController(IBattle context)
         {
             _context = context;
         }
 
-        // GET: api/Battles
+        /// <summary>
+        /// Retrieves all battles.
+        /// </summary>
+        /// <returns>A list of battles.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Battle>>> GetBattles()
         {
-            return await _context.Battles.ToListAsync();
+            var battles = await _context.GetAllBattlesAsync();
+            return Ok(battles);
         }
 
-        // GET: api/Battles/5
+        /// <summary>
+        /// Retrieves a battle by ID.
+        /// </summary>
+        /// <param name="id">The battle ID.</param>
+        /// <returns>The battle entity.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Battle>> GetBattle(int id)
         {
-            var battle = await _context.Battles.FindAsync(id);
-
+            var battle = await _context.GetBattleByIdAsync(id);
             if (battle == null)
             {
                 return NotFound();
             }
-
-            return battle;
+            return Ok(battle);
         }
 
-        // PUT: api/Battles/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Adds a new battle.
+        /// </summary>
+        /// <param name="battle">The battle object to add.</param>
+        /// <returns>The created battle.</returns>
+        [HttpPost]
+        public async Task<ActionResult<Battle>> PostBattle(Battle battle)
+        {
+            await _context.AddBattleAsync(battle);
+            return CreatedAtAction(nameof(GetBattle), new { id = battle.Id }, battle);
+        }
+
+        /// <summary>
+        /// Updates an existing battle.
+        /// </summary>
+        /// <param name="id">The ID of the battle.</param>
+        /// <param name="battle">The updated battle data.</param>
+        /// <returns>No content.</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBattle(int id, Battle battle)
         {
@@ -45,58 +75,26 @@ namespace Samurai.API.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(battle).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BattleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            await _context.UpdateBattleAsync(battle);
             return NoContent();
         }
 
-        // POST: api/Battles
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Battle>> PostBattle(Battle battle)
-        {
-            _context.Battles.Add(battle);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBattle", new { id = battle.Id }, battle);
-        }
-
-        // DELETE: api/Battles/5
+        /// <summary>
+        /// Deletes a battle by ID.
+        /// </summary>
+        /// <param name="id">The ID of the battle to delete.</param>
+        /// <returns>No content.</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBattle(int id)
         {
-            var battle = await _context.Battles.FindAsync(id);
+            var battle = await _context.GetBattleByIdAsync(id);
             if (battle == null)
             {
                 return NotFound();
             }
 
-            _context.Battles.Remove(battle);
-            await _context.SaveChangesAsync();
-
+            await _context.DeleteBattleAsync(id);
             return NoContent();
-        }
-
-        private bool BattleExists(int id)
-        {
-            return _context.Battles.Any(e => e.Id == id);
         }
     }
 }
