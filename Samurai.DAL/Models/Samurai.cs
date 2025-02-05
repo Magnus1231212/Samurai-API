@@ -1,6 +1,6 @@
 namespace Samurai.DAL.Models
 {
-    public class Samurai
+    public class SamuraiModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
