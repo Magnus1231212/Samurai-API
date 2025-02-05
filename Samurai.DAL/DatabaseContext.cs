@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace DeSejeBanditter.DAL.Models
+namespace Samurai.DAL.Models
 {
     public class DatabaseContext : DbContext
     {
