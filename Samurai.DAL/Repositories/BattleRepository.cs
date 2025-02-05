@@ -8,7 +8,7 @@ namespace Samurai.DAL.Repositories
     /// Repository for handling operations related to the Battle entity.
     /// Provides methods to perform CRUD operations and database queries.
     /// </summary>
-    public class BattleRepository : ISamurai
+    public class BattleRepository : IBattle
     {
         private readonly DatabaseContext context;
 
