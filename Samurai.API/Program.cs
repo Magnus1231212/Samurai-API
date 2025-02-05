@@ -7,12 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
-
+builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 var conStr = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DatabaseContext>(obj => obj.UseSqlServer(conStr));
 builder.Services.AddScoped<ISamurai, SamuraiRepository>();
+
+builder.Services.AddScoped<IBattle, BattleRepository>();
+builder.Services.AddScoped<ISamurai, SamuraiRepository>();
+builder.Services.AddScoped<IHorse, HorseRepository>();
+
 
 var app = builder.Build();
 
@@ -20,11 +25,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
     app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "Samurai API"));
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
