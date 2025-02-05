@@ -1,4 +1,4 @@
-namespace DeSejeBanditter.DAL.Models
+namespace Samurai.DAL.Models
 {
     public class Battle
     {
