@@ -13,12 +13,13 @@ public class SamuraiController : ControllerBase
         _samuraiRepository = samuraiRepository;
     }
 
+    // GET: api/samurai/GetAllSamurais
     [HttpGet]
+    [Route("GetAllSamurais")]
     public IActionResult GetAllSamurais()
     {
-        // var samurais = _samuraiRepository.GetAll();
-        // return Ok(samurais);
-        return null;
+        var samurais = _samuraiRepository.GetAllSamuraisAsync();
+        return Ok(samurais);
     }
 
     [HttpGet("{id}")]
