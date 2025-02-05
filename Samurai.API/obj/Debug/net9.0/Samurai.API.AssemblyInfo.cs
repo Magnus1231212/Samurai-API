@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Samurai.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+844166e483b649e69c49f1d3b205df46b54c57af")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a75ff18a7fa2a497928ed08a95a3b3bae8a1ce87")]
 [assembly: System.Reflection.AssemblyProductAttribute("Samurai.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Samurai.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
