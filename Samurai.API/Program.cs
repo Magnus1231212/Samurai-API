@@ -13,6 +13,21 @@ builder.Services.AddControllers();
 var conStr = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DatabaseContext>(obj => obj.UseSqlServer(conStr));
 builder.Services.AddScoped<ISamurai, SamuraiRepository>();
+builder.Services.AddScoped<IBattle, BattleRepository>();
+builder.Services.AddScoped<IHorse, HorseRepository>();
+
+using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+    if (dbContext.Database.CanConnect())
+    {
+        Console.WriteLine("Database connected successfully");
+    }
+    else
+    {
+        Console.WriteLine("Database connection failed");
+    }
+}
 
 var app = builder.Build();
 
