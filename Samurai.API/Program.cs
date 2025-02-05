@@ -14,8 +14,6 @@ builder.Services.AddDbContext<DatabaseContext>(obj => obj.UseSqlServer(conStr));
 
 builder.Services.AddScoped<IBattle, BattleRepository>();
 builder.Services.AddScoped<ISamurai, SamuraiRepository>();
-<<<<<<< HEAD
-builder.Services.AddScoped<IBattle, BattleRepository>();
 builder.Services.AddScoped<IHorse, HorseRepository>();
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
@@ -30,10 +28,6 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
         Console.WriteLine("Database connection failed");
     }
 }
-=======
-builder.Services.AddScoped<IHorse, HorseRepository>();
-
->>>>>>> bb7830fab4e2cb8f9dfa189071e7acee1ff5dc49
 
 var app = builder.Build();
 
