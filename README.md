@@ -29,3 +29,22 @@ To get started with Samurai-API, follow these steps:
 
 You can access the API documentation and test the endpoints using Swagger UI at the following URL:
 [Swagger UI](http://localhost:5197/swagger/index.html)
+
+## Appsettings.json
+
+### Example
+
+```
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1433;Database=samurai;User Id=sa;Password=DevPassw0rd!;Encrypt=False;TrustServerCertificate=True;"
+  }
+}
+```
