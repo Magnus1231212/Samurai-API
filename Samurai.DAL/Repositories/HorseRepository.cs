@@ -8,7 +8,7 @@ namespace Samurai.DAL.Repositories
     /// Repository for handling operations related to the Horse entity.
     /// Provides methods to perform CRUD operations and database queries.
     /// </summary>
-    public class HorseRepository : ISamurai
+    public class HorseRepository : IHorse
     {
         private readonly DatabaseContext context;
 
